@@ -1,0 +1,31 @@
+name: Deploy Hugo Site
+
+on:
+  push:
+    branches:
+      - main  # Your source code branch, change if needed
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true  # Fetch Hugo themes as submodules, if applicable
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Build
+        run: hugo --minify
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: main  # For project sites; use 'main' for user/organization sites
+          keep_files: false  # Set to true if you want to preserve existing files in the deployment branch
