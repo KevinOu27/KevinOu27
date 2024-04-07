@@ -1,5 +1,5 @@
 +++
-title = 'About'
+title = 'About me'
 date = 2024-04-06T17:20:39+09:00
 draft = false
 +++
